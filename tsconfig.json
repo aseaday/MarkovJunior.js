@@ -1,16 +1,16 @@
 {
     "compilerOptions": {
       "module": "commonjs",
+      "types": ["node", "jest"],
       "target": "es6",
       "noImplicitAny": false,
       "sourceMap": false,
-      "rootDir": "src",
-      "outDir": "dist/js",
+      "outDir": "./dist",
       "noEmitOnError": true,
       "resolveJsonModule": true,
-      "typeRoots": ["node_modules/@types"]
     },
     "include": [
-      "src/**/*"
+      "src/**/*",
+      "test/**/*",
     ]
 }
