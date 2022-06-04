@@ -3,6 +3,10 @@
 // - JSON
 // - YAML
 
-export interface IScript {
-    get<T>(fieldName:string, defaultValue:T):T;
+export interface IScriptElement {
+    name: string;
+    Elements(): IScriptElement[];
+    MyDescendants(tags: string[]): Generator<IScriptElement, void, void>;
+    Get<T>(fieldName:string, defaultValue:T):T;
+
 }

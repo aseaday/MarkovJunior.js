@@ -1,6 +1,6 @@
 import XmlElement from "../script/xmlElement";
 
-class Grid {
+export default class Grid {
     public state: char[];
     public mask: boolean[];
     public MX: number;
@@ -19,7 +19,7 @@ class Grid {
         this.MX = MX;
         this.MY = MY;
         this.MZ = MZ;
-        let valueString: string = script.get<string>("values", null)?.replace(" ", "");
+        const valueString: string = script.Get<string>("values", null)?.replace(" ", "");
         if (valueString == null) {
             return null;
         }
@@ -31,7 +31,7 @@ class Grid {
         this.characters = new Array<byte>(this.C);
 
         for (let i: uint8 = 0; i < this.C; i++) {
-            let symbol = <uint8>valueString[i].charCodeAt(0);
+            const symbol = <uint8>valueString[i].charCodeAt(0);
             if (this.values.has(symbol)) {
                 return null;
             }
@@ -42,11 +42,11 @@ class Grid {
             }
         }
 
-        let transparentString: string = script.get<string>("transparent", null);
+        const transparentString: string = script.Get<string>("transparent", null);
         if (transparentString != null) {
             this.transparent = this.Wave(transparentString);
         }
-        let xunions: XmlElement[] = new Array<XmlElement>();
+        const xunions: XmlElement[] = new Array<XmlElement>();
         for (const ele of script.MyDescendants(["markov", "sequence", "union"])) {
             if (ele.name == "union") {
                 xunions.push(ele);
@@ -54,19 +54,19 @@ class Grid {
         }
         this.waves["*"] = (1 << this.C) - 1;
         xunions.forEach(element => {
-            let symbol:char = element.get<char>("symbol", null);
+            const symbol:char = element.Get<char>("symbol", null);
             if (this.waves.has(symbol)) {
                 return null;
             }
             else {
-                const w = this.Wave(element.get<string>("values", null));
+                const w = this.Wave(element.Get<string>("values", null));
                 this.waves[symbol] = w;
             }
         });
         this.state = new Array<byte>(this.MX * this.MY * this.MZ);
         this.statebuffer = new Array<byte>(this.MX * this.MY * this.MZ);
         this.mask = new Array<boolean>(this.MX * this.MY * this.MZ);
-        this.folder = script.get<string>("folder", null);
+        this.folder = script.Get<string>("folder", null);
     }
 
     public Clear(origin: number):void
@@ -80,7 +80,7 @@ class Grid {
     }
 
     public Wave(values: string): number {
-        let sum: number = 0;
+        let sum = 0;
         for (let index = 0; index < values.length; index++) {
             sum += 1 << this.values[values[index]];
         }

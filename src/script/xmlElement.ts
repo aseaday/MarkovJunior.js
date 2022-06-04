@@ -1,6 +1,6 @@
-const { XMLParser } = require("fast-xml-parser");
+import { XMLParser } from "fast-xml-parser";
 import * as fs from 'fs';
-import { IScript } from '.';
+import { IScriptElement } from '.';
 
 const options = {
     ignoreAttributes: false,
@@ -8,9 +8,10 @@ const options = {
 };
 const parser = new XMLParser(options);
 
-export default class XmlElement implements IScript {
+export default class XmlElement implements IScriptElement {
     private jsObj: object;
     private identityPath: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(jsObj?: any, path?: string) {
         if (jsObj) {
             this.jsObj = jsObj;
@@ -22,8 +23,8 @@ export default class XmlElement implements IScript {
         return Object.keys(this.jsObj)[0];
     }
 
-    get<T>(fieldName: string, defaultValue: T): T {
-        let prefixFieldName = "@@" + fieldName;
+    Get<T>(fieldName: string, defaultValue: T): T {
+        const prefixFieldName = "@@" + fieldName;
         if (this.jsObj[this.name][prefixFieldName]) {
             return this.jsObj[this.name][prefixFieldName];
         } else {
@@ -42,10 +43,10 @@ export default class XmlElement implements IScript {
     }
 
     Elements(): XmlElement[] {
-        let elementArray = new Array<XmlElement>();
+        const elementArray = new Array<XmlElement>();
         let i = 0;
         const children = this.jsObj[this.name];
-        for (let key in children) {
+        for (const key in children) {
             if (!key.startsWith("@@")) {
                 if (Array.isArray(children[key])) {
                     for (let j = 0; j < children[key].length; j++) {
@@ -66,14 +67,14 @@ export default class XmlElement implements IScript {
     }
 
     *MyDescendants(tags: string[]): Generator<XmlElement, void, void> {
-        var q = new Array<XmlElement>();
+        const q = new Array<XmlElement>();
         q.push(this);
         while (q.length > 0) {
-            let e: XmlElement = q.pop();
+            const e: XmlElement = q.pop();
             if (!this.Equals(e)) {
                 yield e;
             }
-            let eles = e.Elements();
+            const eles = e.Elements();
             eles.forEach(element => {
                 if (tags.indexOf(element.name) >= 0) {
                     q.push(element);
