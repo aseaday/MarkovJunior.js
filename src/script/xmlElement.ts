@@ -1,13 +1,14 @@
-
-onst { XMLParser } = require("fast-xml-parser");
+const { XMLParser } = require("fast-xml-parser");
 import * as fs from 'fs';
+import { IScript } from '.';
+
 const options = {
     ignoreAttributes: false,
     attributeNamePrefix: "@@"
 };
 const parser = new XMLParser(options);
 
-export default class XmlElement {
+export default class XmlElement implements IScript {
     private jsObj: object;
     private identityPath: string;
     constructor(jsObj?: any, path?: string) {
@@ -19,6 +20,15 @@ export default class XmlElement {
 
     public get name(): string {
         return Object.keys(this.jsObj)[0];
+    }
+
+    get<T>(fieldName: string, defaultValue: T): T {
+        let prefixFieldName = "@@" + fieldName;
+        if (this.jsObj[this.name][prefixFieldName]) {
+            return this.jsObj[this.name][prefixFieldName];
+        } else {
+            return defaultValue;
+        }
     }
 
     LoadFromFile(xmlFileName: string): void {
