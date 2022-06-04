@@ -1,4 +1,5 @@
-const { XMLParser } = require("fast-xml-parser");
+
+onst { XMLParser } = require("fast-xml-parser");
 import * as fs from 'fs';
 const options = {
     ignoreAttributes: false,
