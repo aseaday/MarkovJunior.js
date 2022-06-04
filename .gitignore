@@ -1,6 +1,6 @@
 ### MarkovJunior ###
 *.vox
-
+package-lock.json
 ### Node ###
 # Logs
 logs

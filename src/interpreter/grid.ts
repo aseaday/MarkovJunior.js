@@ -1,3 +1,4 @@
+import { IScriptElement } from "../script";
 import XmlElement from "../script/xmlElement";
 
 export default class Grid {
@@ -15,58 +16,60 @@ export default class Grid {
     transparent: number;
     statebuffer: byte[];
 
-    public Load(script: XmlElement, MX: number, MY: number, MZ: number) {
-        this.MX = MX;
-        this.MY = MY;
-        this.MZ = MZ;
+    public static Load(script: IScriptElement, MX: number, MY: number, MZ: number): Grid {
+        const g = new Grid();
+        g.MX = MX;
+        g.MY = MY;
+        g.MZ = MZ;
         const valueString: string = script.Get<string>("values", null)?.replace(" ", "");
         if (valueString == null) {
             return null;
         }
 
-        this.C = <byte>valueString.length;
-        this.values = new Map<char, byte>();
-        this.waves = new Map<char, number>();
+        g.C = <byte>valueString.length;
+        g.values = new Map<char, byte>();
+        g.waves = new Map<char, number>();
 
-        this.characters = new Array<byte>(this.C);
+        g.characters = new Array<byte>(g.C);
 
-        for (let i: uint8 = 0; i < this.C; i++) {
+        for (let i: uint8 = 0; i < g.C; i++) {
             const symbol = <uint8>valueString[i].charCodeAt(0);
-            if (this.values.has(symbol)) {
+            if (g.values.has(symbol)) {
                 return null;
             }
             else {
-                this.characters[i] = symbol;
-                this.values[symbol] = i;
-                this.waves[symbol] = i;
+                g.characters[i] = symbol;
+                g.values[symbol] = i;
+                g.waves[symbol] = i;
             }
         }
 
         const transparentString: string = script.Get<string>("transparent", null);
         if (transparentString != null) {
-            this.transparent = this.Wave(transparentString);
+            g.transparent = g.Wave(transparentString);
         }
-        const xunions: XmlElement[] = new Array<XmlElement>();
+        const xunions: IScriptElement[] = new Array<IScriptElement>();
         for (const ele of script.MyDescendants(["markov", "sequence", "union"])) {
             if (ele.name == "union") {
                 xunions.push(ele);
             }
         }
-        this.waves["*"] = (1 << this.C) - 1;
+        g.waves["*"] = (1 << g.C) - 1;
         xunions.forEach(element => {
             const symbol:char = element.Get<char>("symbol", null);
-            if (this.waves.has(symbol)) {
+            if (g.waves.has(symbol)) {
                 return null;
             }
             else {
-                const w = this.Wave(element.Get<string>("values", null));
-                this.waves[symbol] = w;
+                const w = g.Wave(element.Get<string>("values", null));
+                g.waves[symbol] = w;
             }
         });
-        this.state = new Array<byte>(this.MX * this.MY * this.MZ);
-        this.statebuffer = new Array<byte>(this.MX * this.MY * this.MZ);
-        this.mask = new Array<boolean>(this.MX * this.MY * this.MZ);
-        this.folder = script.Get<string>("folder", null);
+        g.state = new Array<byte>(g.MX * g.MY * g.MZ);
+        g.statebuffer = new Array<byte>(g.MX * g.MY * g.MZ);
+        g.mask = new Array<boolean>(g.MX * g.MY * g.MZ);
+        g.folder = script.Get<string>("folder", null);
+        return g;
     }
 
     public Clear(origin: number):void

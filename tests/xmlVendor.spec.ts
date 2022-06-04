@@ -10,6 +10,11 @@ describe("xmlVendor", () => {
     xmlDoc.LoadFromFile("models/xml/Noise.xml");
     expect(xmlDoc.Elements().length).toBe(3);
   });
+  test("test if xmlElemnt get filtered elements", () => {
+    const xmlDoc = new XmlElement();
+    xmlDoc.LoadFromFile("models/xml/Cave.xml");
+    expect(xmlDoc.Elements(["prl", "convolution"]).length).toBe(3);
+  });
   test("test if xlm could get descendants", () => {
     const xmlDoc = new XmlElement();
     xmlDoc.LoadFromFile("models/xml/Noise.xml");

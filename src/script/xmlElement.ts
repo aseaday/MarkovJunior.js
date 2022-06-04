@@ -42,7 +42,7 @@ export default class XmlElement implements IScriptElement {
         return ele.identityPath === this.identityPath;
     }
 
-    Elements(): XmlElement[] {
+    Elements(filterTags?: string[]): XmlElement[] {
         const elementArray = new Array<XmlElement>();
         let i = 0;
         const children = this.jsObj[this.name];
@@ -63,9 +63,13 @@ export default class XmlElement implements IScriptElement {
                 }
             }
         }
+        if (filterTags) {
+            return elementArray.filter(element => filterTags.indexOf(element.name) >= 0);
+        }
         return elementArray;
     }
 
+    // this imp would be updated later
     *MyDescendants(tags: string[]): Generator<XmlElement, void, void> {
         const q = new Array<XmlElement>();
         q.push(this);
