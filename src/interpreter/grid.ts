@@ -1,14 +1,15 @@
 import { IScriptElement } from "../script";
 import XmlElement from "../script/xmlElement";
+import Rule from "./rule";
 
 export default class Grid {
-    public state: char[];
+    public state: byte[];
     public mask: boolean[];
     public MX: number;
     public MY: number;
     public MZ: number;
     public C: byte;
-    public characters: byte[];
+    public characters: char[];
     public values: Map<char, byte>;
     public waves: Map<char, number>;
     public folder: string;
@@ -30,17 +31,17 @@ export default class Grid {
         g.values = new Map<char, byte>();
         g.waves = new Map<char, number>();
 
-        g.characters = new Array<byte>(g.C);
+        g.characters = new Array<char>(g.C);
 
         for (let i: uint8 = 0; i < g.C; i++) {
-            const symbol = <uint8>valueString[i].charCodeAt(0);
+            const symbol = <char>valueString[i]
             if (g.values.has(symbol)) {
                 return null;
             }
             else {
-                g.characters[i] = symbol;
-                g.values[symbol] = i;
-                g.waves[symbol] = i;
+                g.characters.push(symbol);
+                g.values.set(symbol, i as uint8);
+                g.waves.set(symbol, 1 << i);
             }
         }
 
@@ -54,15 +55,15 @@ export default class Grid {
                 xunions.push(ele);
             }
         }
-        g.waves["*"] = (1 << g.C) - 1;
+        g.waves.set("*", (1 << g.C) - 1);
         xunions.forEach(element => {
-            const symbol:char = element.Get<char>("symbol", null);
+            const symbol: char = element.Get<char>("symbol", null);
             if (g.waves.has(symbol)) {
                 return null;
             }
             else {
                 const w = g.Wave(element.Get<string>("values", null));
-                g.waves[symbol] = w;
+                g.waves.set(symbol, w);
             }
         });
         g.state = new Array<byte>(g.MX * g.MY * g.MZ);
@@ -72,12 +73,11 @@ export default class Grid {
         return g;
     }
 
-    public Clear(origin: number):void
-    {
-        for (let i = 0; i < this.state.length; i++) { 
+    public Clear(origin: number): void {
+        for (let i = 0; i < this.state.length; i++) {
             this.state[i] = 0;
         }
-        if (origin >= 0) { 
+        if (origin >= 0) {
             this.state[origin] = 1;
         }
     }
@@ -90,4 +90,25 @@ export default class Grid {
         return sum;
     }
 
+    public Matches(rule: Rule, x: number, y: number, z: number): boolean {
+        let dz = 0;
+        let dy = 0;
+        let dx = 0;
+        for (let di = 0; di < rule.input.length; di++) {
+            const cvalue = this.state[x + dx + (y + dy) * this.MX + (z + dz) * this.MX * this.MY] as number
+            if (((rule.input[di]) & (1 << cvalue)) == 0) {
+                return false;
+            }
+            dx++;
+            if (dx == rule.IMX) {
+                dx = 0;
+                dy++;
+                if (dy == rule.IMY) {
+                    dy = 0;
+                    dz++;
+                }
+            }
+        }
+        return true;
+    }
 }
