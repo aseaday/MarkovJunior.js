@@ -48,8 +48,8 @@ export default class Interpreter {
         this.grid = this.startGrid;
         const originIndex = this.origin == "Center" ? (this.grid.MX / 2 + (this.grid.MY / 2) * this.grid.MX + (this.grid.MZ / 2) * this.grid.MX * this.grid.MY) : random.Next(this.grid.MX * this.grid.MY * this.grid.MZ);
         this.grid.Clear(originIndex);
-        this.changes.fill([0, 0, 0]);
-        this.first.fill(0);
+        this.changes.splice(0);
+        this.first.splice(0);
         this.first.push(0);
         this.root.Reset();
         this.gif = gif;

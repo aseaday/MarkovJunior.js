@@ -32,10 +32,18 @@ export default class XmlElement implements IScriptElement {
         }
     }
 
-    LoadFromFile(xmlFileName: string): void {
+    public static LoadFromFile(xmlFileName: string): XmlElement {
 
-        this.jsObj = parser.parse(fs.readFileSync(xmlFileName, "utf8"));
-        this.identityPath = "0";
+        const jsObj = parser.parse(fs.readFileSync(xmlFileName, "utf8"));
+        const identityPath = "0";
+        return new XmlElement(jsObj, identityPath);
+    }
+
+    public static LoadFromString(xmlString: string): XmlElement {
+
+        const jsObj = parser.parse(xmlString);
+        const identityPath = "0";
+        return new XmlElement(jsObj, identityPath);
     }
 
     Equals(ele: XmlElement) {

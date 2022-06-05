@@ -3,8 +3,7 @@ import XmlElement from '../src/script/xmlElement';
 
 describe("grid", () => {
     test("test if read basic element.", () =>{
-        const xmlDoc = new XmlElement();
-        xmlDoc.LoadFromFile("models/xml/basic.xml");
+        const xmlDoc = XmlElement.LoadFromFile("models/xml/basic.xml");
         const grid = Grid.Load(xmlDoc, 10, 10, 10);
         expect(grid.MX).toBe(10);
         expect(grid.MY).toBe(10);
