@@ -1,5 +1,4 @@
 import { IScriptElement } from "../script";
-import XmlElement from "../script/xmlElement";
 import Rule from "./rule";
 
 export default class Grid {
