@@ -10,6 +10,6 @@ export default class Random {
             imax = min;
             imin = 0;
         }
-        return Math.floor(Math.random() * (imax - imin + 1)) + imin;
+        return Math.floor(Math.random() * (imax - imin)) + imin;
     }
 }

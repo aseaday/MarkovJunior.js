@@ -14,7 +14,7 @@ export default abstract class RuleNode extends Node {
     protected lastMatchedTurn: number;
     protected matchMask: boolean[][];
 
-    protected override Load(selem: IScriptElement, parentSymmetry: boolean[], grid: Grid): boolean {
+    public override Load(selem: IScriptElement, parentSymmetry: boolean[], grid: Grid): boolean {
         const symmetrystring = selem.Get<string>("symmetry", null);
         const symmetry: boolean[] = SymmetryHelper.GetSymmetry(grid.MZ == 1, symmetrystring, parentSymmetry);
         if (symmetry == null) {
@@ -40,7 +40,7 @@ export default abstract class RuleNode extends Node {
                 ruleList.push(r);
             }
         }
-        this.rules = Array.from(ruleList);
+        this.rules = ruleList;
         this.last = new Array<boolean>(this.rules.length);
         this.steps = selem.Get<number>("steps", 0);
         return true;
@@ -127,5 +127,6 @@ export default abstract class RuleNode extends Node {
                 }
             }
         }
+        return true;
     }
 }

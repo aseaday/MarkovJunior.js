@@ -30,7 +30,7 @@ export default class Grid {
         g.values = new Map<char, byte>();
         g.waves = new Map<char, number>();
 
-        g.characters = new Array<char>(g.C);
+        g.characters = new Array<char>();
 
         for (let i: uint8 = 0; i < g.C; i++) {
             const symbol = <char>valueString[i]
@@ -43,7 +43,6 @@ export default class Grid {
                 g.waves.set(symbol, 1 << i);
             }
         }
-
         const transparentString: string = script.Get<string>("transparent", null);
         if (transparentString != null) {
             g.transparent = g.Wave(transparentString);

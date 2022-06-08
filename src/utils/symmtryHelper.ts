@@ -21,7 +21,7 @@ export default class SymmetryHelper {
         things[5] = reflection(things[4]);  // ba2
         things[6] = rotation(things[4]);    // a3
         things[7] = reflection(things[6]);  // ba3
-        const result: T[] = new Array<T>(8);
+        const result: T[] = new Array<T>();
         for (let i = 0; i < 8; i++) {
             if (subgroup == null || subgroup[i]) {
                 if (result.filter(t => same(t, things[i])).length == 0) {

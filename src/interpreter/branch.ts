@@ -2,13 +2,14 @@ import SymmetryHelper from "../utils/symmtryHelper";
 import Node from "./node";
 import { IScriptElement } from "../script";
 import Grid from "./grid";
-export default abstract class Branch extends Node {
+import Factory from "./factory";
+export default class Branch extends Node {
     public parent: Branch;
     public nodes: Node[];
     public n: number;
 
     public isBranched = true;
-    protected override Load(selm: IScriptElement, parentSymmetry: boolean[], grid: Grid): boolean {
+    public override Load(selm: IScriptElement, parentSymmetry: boolean[], grid: Grid): boolean {
         const symmetryString = selm.Get<string>("symmetry", null);
         const symmetry = SymmetryHelper.GetSymmetry(this.ip.grid.MZ == 1, symmetryString, parentSymmetry);
         if (symmetry == null) {
@@ -17,7 +18,7 @@ export default abstract class Branch extends Node {
         const schildren: IScriptElement[] = selm.Elements(Branch.nodeNames);
         this.nodes = new Array<Node>();
         for (let i = 0; i < this.nodes.length; i++) {
-            const child = Node.Factory(schildren[i], symmetry, this.ip, grid);
+            const child = Factory(schildren[i], symmetry, this.ip, grid);
             if (child == null) {
                 return false;
             }
@@ -49,4 +50,7 @@ export default abstract class Branch extends Node {
         });
         this.n = 0;
     }
+}
+
+export class SequenceNode extends Branch {
 }

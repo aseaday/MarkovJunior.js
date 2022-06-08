@@ -6,6 +6,7 @@ import Grid from "./grid";
 import MarkovNode from "./markov";
 import Node from "./node";
 import Random from "../utils/random";
+import Factory from "./factory";
 
 export default class Interpreter {
     public root: Branch;
@@ -17,6 +18,7 @@ export default class Interpreter {
     public first: number[];
     public counter: number;
     public gif: boolean;
+    public random:Random;
 
     public static Load(selm: IScriptElement, MX: number, MY: number, MZ: number) {
         const ip = new Interpreter();
@@ -29,7 +31,7 @@ export default class Interpreter {
         if (symmetry == null) {
             return null;
         }
-        const topNode = Node.Factory(selm, symmetry, ip, ip.grid);
+        const topNode = Factory(selm, symmetry, ip, ip.grid);
         if (topNode == null) {
             return null;
         }
@@ -44,9 +46,9 @@ export default class Interpreter {
     }
 
     public *Run(seed: number, steps: number, gif: boolean): IterableIterator<[byte[], char[], number, number, number]> {
-        const random = new Random(seed);
+        this.random = new Random(seed);
         this.grid = this.startGrid;
-        const originIndex = this.origin == "Center" ? (this.grid.MX / 2 + (this.grid.MY / 2) * this.grid.MX + (this.grid.MZ / 2) * this.grid.MX * this.grid.MY) : random.Next(this.grid.MX * this.grid.MY * this.grid.MZ);
+        const originIndex = this.origin == "Center" ? (this.grid.MX / 2 + (this.grid.MY / 2) * this.grid.MX + (this.grid.MZ / 2) * this.grid.MX * this.grid.MY) : this.random.Next(this.grid.MX * this.grid.MY * this.grid.MZ);
         this.grid.Clear(originIndex);
         this.changes.splice(0);
         this.first.splice(0);
@@ -54,6 +56,7 @@ export default class Interpreter {
         this.root.Reset();
         this.gif = gif;
         this.counter = 0;
+        this.current = this.root;
         while (this.current != null && (steps <= 0 || this.counter < steps)) {
             if (gif) {
                 yield [this.grid.state, this.grid.characters, this.grid.MX, this.grid.MY, this.grid.MZ]
