@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <title>Markov Junior Demo</title>
+  <style>
+    #canvas {
+      width: 400px;
+      height: 400px;
+
+    }
+
+    #root {
+      border-color: coral;
+      border-style: solid;
+      border-width: 5px;
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -200px;
+      margin-left: -200px;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <canvas id="canvas"></canvas>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const canvasDoc = document.getElementById("canvas");
+      const cr = new MarkovJunior.Canvasrendor(canvasDoc);
+      cr.render('<one values="BW" in="B" out="W" origin="Center"/>');
+    }, false);
+  </script>
+</body>
+
+</html>

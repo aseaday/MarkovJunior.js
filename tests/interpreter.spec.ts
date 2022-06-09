@@ -5,9 +5,9 @@ describe("test interpreter", () => {
     test("if it run a basic xml", () => {
         const modeldoc = XmlElement.LoadFromFile("models/xml/basic.xml");
         const interpreter: Interpreter = Interpreter.Load(modeldoc, 10, 10, 1);
-        const gen = interpreter.Run(100, 10, true);
-        for (let i = 0; i < 10; i++) {
-            console.log(gen.next());
-        }
+        const gen = interpreter.Run(100, 100, true);
+        // for (let i = 0; i < 100; i++) {
+        //     console.log(gen.next().value);
+        // }
     });
 })

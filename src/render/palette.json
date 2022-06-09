@@ -1,0 +1,314 @@
+[
+    {
+        "name": "Black",
+        "rgb": "0 0 0",
+        "symbol": "B",
+        "value": "000000"
+    },
+    {
+        "name": "Indigo",
+        "rgb": "29 43 83",
+        "symbol": "I",
+        "value": "1D2B53"
+    },
+    {
+        "name": "Purple",
+        "rgb": "126 37 83",
+        "symbol": "P",
+        "value": "7E2553"
+    },
+    {
+        "name": "Emerald",
+        "rgb": "0 135 81",
+        "symbol": "E",
+        "value": "008751"
+    },
+    {
+        "name": "browN",
+        "rgb": "171 82 54",
+        "symbol": "N",
+        "value": "AB5236"
+    },
+    {
+        "name": "Dead",
+        "rgb": "95 87 79",
+        "symbol": "D",
+        "value": "5F574F"
+    },
+    {
+        "name": "Alive",
+        "rgb": "194 195 199",
+        "symbol": "A",
+        "value": "C2C3C7"
+    },
+    {
+        "name": "White",
+        "rgb": "255 241 232",
+        "symbol": "W",
+        "value": "FFF1E8"
+    },
+    {
+        "name": "Red",
+        "rgb": "255 0 77",
+        "symbol": "R",
+        "value": "FF004D"
+    },
+    {
+        "name": "Orange",
+        "rgb": "255 163 0",
+        "symbol": "O",
+        "value": "FFA300"
+    },
+    {
+        "name": "Yellow",
+        "rgb": "255 236 39",
+        "symbol": "Y",
+        "value": "FFEC27"
+    },
+    {
+        "name": "Green",
+        "rgb": "0 228 54",
+        "symbol": "G",
+        "value": "00E436"
+    },
+    {
+        "name": "blUe",
+        "rgb": "41 173 255",
+        "symbol": "U",
+        "value": "29ADFF"
+    },
+    {
+        "name": "Slate",
+        "rgb": "131 118 156",
+        "symbol": "S",
+        "value": "83769C"
+    },
+    {
+        "name": "pinK",
+        "rgb": "255 119 168",
+        "symbol": "K",
+        "value": "FF77A8"
+    },
+    {
+        "name": "Fawn",
+        "rgb": "255 204 170",
+        "symbol": "F",
+        "value": "FFCCAA"
+    },
+    {
+        "name": "black",
+        "rgb": "41 24 20",
+        "symbol": "b",
+        "value": "291814"
+    },
+    {
+        "name": "indigo",
+        "rgb": "17 29 53",
+        "symbol": "i",
+        "value": "111d35"
+    },
+    {
+        "name": "purple",
+        "rgb": "66 33 54",
+        "symbol": "p",
+        "value": "422136"
+    },
+    {
+        "name": "emerald",
+        "rgb": "18 83 89",
+        "symbol": "e",
+        "value": "125359"
+    },
+    {
+        "name": "brown",
+        "rgb": "116 47 41",
+        "symbol": "n",
+        "value": "742f29"
+    },
+    {
+        "name": "dead",
+        "rgb": "73 51 59",
+        "symbol": "d",
+        "value": "49333b"
+    },
+    {
+        "name": "alive",
+        "rgb": "162 136 121",
+        "symbol": "a",
+        "value": "a28879"
+    },
+    {
+        "name": "white",
+        "rgb": "243 239 125",
+        "symbol": "w",
+        "value": "f3ef7d"
+    },
+    {
+        "name": "red",
+        "rgb": "190 18 80",
+        "symbol": "r",
+        "value": "be1250"
+    },
+    {
+        "name": "orange",
+        "rgb": "255 108 36",
+        "symbol": "o",
+        "value": "ff6c24"
+    },
+    {
+        "name": "yellow",
+        "rgb": "168 231 46",
+        "symbol": "y",
+        "value": "a8e72e"
+    },
+    {
+        "name": "green",
+        "rgb": "0 181 67",
+        "symbol": "g",
+        "value": "00b543"
+    },
+    {
+        "name": "blue",
+        "rgb": "6 90 181",
+        "symbol": "u",
+        "value": "065ab5"
+    },
+    {
+        "name": "slate",
+        "rgb": "117 70 101",
+        "symbol": "s",
+        "value": "754665"
+    },
+    {
+        "name": "pink",
+        "rgb": "255 110 89",
+        "symbol": "k",
+        "value": "ff6e59"
+    },
+    {
+        "name": "fawn",
+        "rgb": "255 157 129",
+        "symbol": "f",
+        "value": "ff9d81"
+    },
+    {
+        "name": "Cyan",
+        "rgb": "0 255 255",
+        "symbol": "C",
+        "value": "00ffff"
+    },
+    {
+        "name": "cyan",
+        "rgb": "95 205 228",
+        "symbol": "c",
+        "value": "5fcde4"
+    },
+    {
+        "name": "Honey",
+        "rgb": "228 187 64",
+        "symbol": "H",
+        "value": "e4bb40"
+    },
+    {
+        "name": "honey",
+        "rgb": "138 111 48",
+        "symbol": "h",
+        "value": "8a6f30"
+    },
+    {
+        "name": "Jungle",
+        "rgb": "75 105 47",
+        "symbol": "J",
+        "value": "4b692f"
+    },
+    {
+        "name": "jungle",
+        "rgb": "69 16 126",
+        "symbol": "j",
+        "value": "45107e"
+    },
+    {
+        "name": "Light",
+        "rgb": "132 126 135",
+        "symbol": "L",
+        "value": "847e87"
+    },
+    {
+        "name": "light",
+        "rgb": "105 106 106",
+        "symbol": "l",
+        "value": "696a6a"
+    },
+    {
+        "name": "Magenta",
+        "rgb": "255 0 255",
+        "symbol": "M",
+        "value": "ff00ff"
+    },
+    {
+        "name": "magenta",
+        "rgb": "156 9 204",
+        "symbol": "m",
+        "value": "9c09cc"
+    },
+    {
+        "name": "aQua",
+        "rgb": "155 173 183",
+        "symbol": "Q",
+        "value": "9badb7"
+    },
+    {
+        "name": "aqua",
+        "rgb": "63 63 116",
+        "symbol": "q",
+        "value": "3f3f74"
+    },
+    {
+        "name": "Teal",
+        "rgb": "55 148 110",
+        "symbol": "T",
+        "value": "37946e"
+    },
+    {
+        "name": "teal",
+        "rgb": "50 60 57",
+        "symbol": "t",
+        "value": "323c39"
+    },
+    {
+        "name": "oliVe",
+        "rgb": "143 151 74",
+        "symbol": "V",
+        "value": "8f974a"
+    },
+    {
+        "name": "olive",
+        "rgb": "82 75 36",
+        "symbol": "v",
+        "value": "524b24"
+    },
+    {
+        "name": "X",
+        "rgb": "255 0 0",
+        "symbol": "X",
+        "value": "ff0000"
+    },
+    {
+        "name": "x",
+        "rgb": "217 87 99",
+        "symbol": "x",
+        "value": "d95763"
+    },
+    {
+        "name": "Z",
+        "rgb": "255 255 255",
+        "symbol": "Z",
+        "value": "ffffff"
+    },
+    {
+        "name": "z",
+        "rgb": "203 219 252",
+        "symbol": "z",
+        "value": "cbdbfc"
+    }
+]
