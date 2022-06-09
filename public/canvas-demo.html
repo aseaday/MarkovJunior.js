@@ -12,7 +12,7 @@
   <style>
     #container {
       border-color: coral;
-      box-sizing:content-box;
+      box-sizing: content-box;
       border-width: 4px;
       border-radius: 2%;
       border-style: solid;
@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <h2 style = "text-align: center;">MarkovJunior.js Demo</h2>
+  <h2 style="text-align: center;">MarkovJunior.js Demo</h2>
   <div id="container">
     <canvas id="canvas" width="400" height="400"></canvas>
     <label for="name">Please input the script</label>
@@ -37,10 +37,22 @@
     </textarea>
   </div>
   <script>
+    const drawByScript = function (cr, script = '<one values="BW" in="B" out="W" origin="Center"/>') {
+      try {
+        cr.render(script);
+      } catch (e) {
+        console.log(e);
+      }
+    };
     document.addEventListener('DOMContentLoaded', function () {
+      const w3review = document.getElementById("w3review");
       const canvasDoc = document.getElementById("canvas");
       const cr = new MarkovJunior.Canvasrendor(canvasDoc);
-      cr.render('<one values="BW" in="B" out="W" origin="Center"/>');
+      drawByScript(cr);
+      w3review.addEventListener("change", function (event) {
+        cr.stopRender();
+        drawByScript(cr, w3review.value);
+      })
     }, false);
   </script>
 </body>

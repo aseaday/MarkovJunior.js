@@ -1,5 +1,6 @@
 ### MarkovJunior ###
 *.vox
+.DS_Store
 package-lock.json
 ### Node ###
 # Logs
