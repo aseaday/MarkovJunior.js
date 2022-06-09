@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "dev": "webpack --config webpack/webpack.dev.js"
+    "dev": "webpack serve --config webpack/webpack.dev.js",
+    "dist": "webpack --config webpack/webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   },
   "dependencies": {
     "fast-xml-parser": "^4.0.8",
-    "queue": "^6.0.2"
+    "queue": "^6.0.2",
+    "terser-webpack-plugin": "^5.3.3"
   }
 }

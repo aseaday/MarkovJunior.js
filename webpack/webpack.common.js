@@ -58,7 +58,7 @@ module.exports = {
                     noErrorOnMissing: true,
                     globOptions: {
                         ignore: [
-                            '**/index.html'
+                            '**/canvas-demo.html'
                         ]
                     }
                 },
