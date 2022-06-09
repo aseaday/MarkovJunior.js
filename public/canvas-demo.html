@@ -5,14 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="" />
-  <title>Markov Junior Demo</title>
+  <title>MarkovJunior.js Demo</title>
   <style>
-    #canvas {
-      width: 400px;
-      height: 400px;
-
-    }
-
     #root {
       border-color: coral;
       border-style: solid;
@@ -30,8 +24,12 @@
 </head>
 
 <body>
+  <h2>MarkovJunior Demo</h2>
   <div id="root">
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <label for="name">Please input the script</label>
+    <textarea id="w3review" rows="4" cols="48"><one values="BW" in="B" out="W" origin="Center"/>
+    </textarea>
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

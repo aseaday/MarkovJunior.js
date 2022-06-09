@@ -8,18 +8,20 @@ export default class CanvasRender {
     MX: number;
     MY: number;
     MZ = 1;
+    timer: ReturnType<typeof setInterval>;
     interpreter: Interpreter;
     scriptString: string;
     scriptRoot: IScriptElement;
     canvasHandler: CanvasRenderingContext2D;
     paint: Paint;
     options = {
-        fps: 24
+        fps: 24,
+        scale: 10,
     }
     constructor(canvas: HTMLCanvasElement, options?: any) {
         this.canvas = canvas;
-        this.MY = canvas.height / 10;
-        this.MX = canvas.width / 10;
+        this.MY = canvas.height / this.options.scale;
+        this.MX = canvas.width / this.options.scale;
         this.canvasHandler = canvas.getContext('2d');
         this.paint = new Paint(this.MX, this.MY);
     }
@@ -28,7 +30,7 @@ export default class CanvasRender {
         this.scriptRoot = XmlElement.LoadFromString(script);
         this.interpreter = Interpreter.Load(this.scriptRoot, this.MX, this.MY, this.MZ);
         const gen = this.interpreter.Run(1, 1000, true);
-        setInterval(() => {
+        this.timer = setInterval(() => {
             const frame = gen.next().value;
             this.paint.setFrame(frame);
             for (let x = 0; x < this.MX; x++) {
@@ -38,5 +40,9 @@ export default class CanvasRender {
                 }
             }
         }, Math.floor(1000 / this.options.fps));
+    }
+
+    public stopRender():void {
+        clearInterval(this.timer);
     }
 }
