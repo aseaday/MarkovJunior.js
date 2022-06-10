@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="" />
+  <meta name="description" content="A demo of the MarkovJunior.js library running in the browser environment." />
   <title>MarkovJunior.js Demo</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -32,12 +32,12 @@
   <h2 style="text-align: center;">MarkovJunior.js Demo</h2>
   <div id="container">
     <canvas id="canvas" width="400" height="400"></canvas>
-    <label for="name">Please input the script</label>
-    <textarea class="form-control" id="w3review" rows="4" cols="48"><one values="BW" in="B" out="W" origin="Center"/>
+    <label for="scriptInput">Please input the script</label>
+    <textarea id="scriptInput" rows="4" cols="48"><one values="BW" in="B" out="W" origin="Center"/>
     </textarea>
   </div>
   <script>
-    const drawByScript = function (cr, script = '<one values="BW" in="B" out="W" origin="Center"/>') {
+    const drawByScript = function (cr, script = document.getElementById("scriptInput").value) {
       try {
         cr.render(script);
       } catch (e) {
@@ -45,13 +45,13 @@
       }
     };
     document.addEventListener('DOMContentLoaded', function () {
-      const w3review = document.getElementById("w3review");
+      const scriptInput = document.getElementById("scriptInput");
       const canvasDoc = document.getElementById("canvas");
       const cr = new MarkovJunior.Canvasrendor(canvasDoc);
       drawByScript(cr);
-      w3review.addEventListener("change", function (event) {
+      scriptInput.addEventListener("change", function (event) {
         cr.stopRender();
-        drawByScript(cr, w3review.value);
+        drawByScript(cr, scriptInput.value);
       })
     }, false);
   </script>
