@@ -166,10 +166,9 @@ export default class Rule {
         return [result, MX, MY, MZ];
     }
 
-    // There is no file read function now
     public static Load(selem: IScriptElement, gin: Grid, gout: Grid): Rule {
-        const inString = selem.Get<string>("in", null);
-        const outString = selem.Get<string>("out", null);
+        const inString: string | null = selem.Get<string>("in", null);
+        const outString: string | null = selem.Get<string>("out", null);
 
         let inRect: char[], outRect: char[];
         let IMX = -1, IMY = -1, IMZ = -1;
@@ -183,7 +182,7 @@ export default class Rule {
         // eslint-disable-next-line prefer-const
         [outRect, OMX, OMY, OMZ] = Rule.Parse(outString);
         if (inRect === null || outRect === null) {
-            console.log("no in string or no out string")
+            console.error("no in string or no out string")
             return null;
         }
         const input: number[] = new Array<number>(inRect.length);
@@ -192,7 +191,7 @@ export default class Rule {
             if (gin.waves.has(c)) {
                 input[i] = gin.waves.get(c);
             } else {
-                console.log("the input string has a char not in the grid");
+                console.error("the input string has a char not in the grid");
                 return null;
             }
         }
@@ -205,7 +204,7 @@ export default class Rule {
                 if (gout.values.has(c)) {
                     output[o] = gout.values.get(c);
                 } else {
-                    console.log("the output string has a char not in the grid");
+                    console.error("the output string has a char not in the grid");
                     return null;
                 }
             }
