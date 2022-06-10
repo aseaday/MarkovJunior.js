@@ -16,8 +16,8 @@ export default abstract class RuleNode extends Node {
 
     public override Load(selem: IScriptElement, parentSymmetry: boolean[], grid: Grid): boolean {
         const symmetrystring = selem.Get<string>("symmetry", null);
-        const symmetry: boolean[] = SymmetryHelper.GetSymmetry(grid.MZ == 1, symmetrystring, parentSymmetry);
-        if (symmetry == null) {
+        const symmetry: boolean[] = SymmetryHelper.GetSymmetry(grid.MZ === 1, symmetrystring, parentSymmetry);
+        if (symmetry === null) {
             console.log("unknown symmetry");
             return false;
         }
@@ -27,16 +27,16 @@ export default abstract class RuleNode extends Node {
         const ruleElements: IScriptElement[] = srules.length > 0 ? srules : [selem];
         for (const ruleElement of ruleElements) {
             const rule = Rule.Load(ruleElement, grid, grid);
-            if (rule == null) {
+            if (rule === null) {
                 return false;
             }
             rule.original = true;
             const ruleSymmetryString = ruleElement.Get<string>("symmetry", null);
-            const ruleSymmetry = SymmetryHelper.GetSymmetry(grid.MZ == 1, ruleSymmetryString, symmetry);
-            if (ruleSymmetry == null) {
+            const ruleSymmetry = SymmetryHelper.GetSymmetry(grid.MZ === 1, ruleSymmetryString, symmetry);
+            if (ruleSymmetry === null) {
                 return false;
             }
-            for (const r of rule.Symmetries(ruleSymmetry, grid.MZ == 1)) {
+            for (const r of rule.Symmetries(ruleSymmetry, grid.MZ === 1)) {
                 ruleList.push(r);
             }
         }

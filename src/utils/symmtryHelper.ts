@@ -23,8 +23,8 @@ export default class SymmetryHelper {
         things[7] = reflection(things[6]);  // ba3
         const result: T[] = new Array<T>();
         for (let i = 0; i < 8; i++) {
-            if (subgroup == null || subgroup[i]) {
-                if (result.filter(t => same(t, things[i])).length == 0) {
+            if (subgroup === null || subgroup[i]) {
+                if (result.filter(t => same(t, things[i])).length === 0) {
                     result.push(things[i]);
                 }
             }
@@ -32,7 +32,7 @@ export default class SymmetryHelper {
         return result;
     }
     public static GetSymmetry(isDimTwo: boolean, symmetryString: string, defaultGroup: boolean[]): boolean[] {
-        if (symmetryString == null) {
+        if (symmetryString === null) {
             return defaultGroup;
         }
     }

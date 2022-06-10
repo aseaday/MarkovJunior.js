@@ -22,7 +22,7 @@ export default class Grid {
         g.MY = MY;
         g.MZ = MZ;
         const valueString: string = script.Get<string>("values", null)?.replace(" ", "");
-        if (valueString == null) {
+        if (valueString === null) {
             return null;
         }
 
@@ -49,7 +49,7 @@ export default class Grid {
         }
         const xunions: IScriptElement[] = new Array<IScriptElement>();
         for (const ele of script.MyDescendants(["markov", "sequence", "union"])) {
-            if (ele.name == "union") {
+            if (ele.name === "union") {
                 xunions.push(ele);
             }
         }
@@ -94,14 +94,14 @@ export default class Grid {
         let dx = 0;
         for (let di = 0; di < rule.input.length; di++) {
             const cvalue = this.state[x + dx + (y + dy) * this.MX + (z + dz) * this.MX * this.MY] as number
-            if (((rule.input[di]) & (1 << cvalue)) == 0) {
+            if (((rule.input[di]) & (1 << cvalue)) === 0) {
                 return false;
             }
             dx++;
-            if (dx == rule.IMX) {
+            if (dx === rule.IMX) {
                 dx = 0;
                 dy++;
-                if (dy == rule.IMY) {
+                if (dy === rule.IMY) {
                     dy = 0;
                     dz++;
                 }

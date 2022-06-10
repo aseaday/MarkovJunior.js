@@ -11,15 +11,15 @@ export default class Branch extends Node {
     public isBranched = true;
     public override Load(selm: IScriptElement, parentSymmetry: boolean[], grid: Grid): boolean {
         const symmetryString = selm.Get<string>("symmetry", null);
-        const symmetry = SymmetryHelper.GetSymmetry(this.ip.grid.MZ == 1, symmetryString, parentSymmetry);
-        if (symmetry == null) {
+        const symmetry = SymmetryHelper.GetSymmetry(this.ip.grid.MZ === 1, symmetryString, parentSymmetry);
+        if (symmetry === null) {
             return false;
         }
         const schildren: IScriptElement[] = selm.Elements(Branch.nodeNames);
         this.nodes = new Array<Node>();
         for (let i = 0; i < this.nodes.length; i++) {
             const child = Factory(schildren[i], symmetry, this.ip, grid);
-            if (child == null) {
+            if (child === null) {
                 return false;
             }
             if ((child as Branch).isBranched) {

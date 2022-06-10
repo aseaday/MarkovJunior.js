@@ -35,7 +35,7 @@ export default class Rule {
                 for (let x = 0; x < IMX; x++) {
                     let w = this.input[z * IMX * IMY + y * IMX + x];
                     for (let c = 0; c < C; c++, w >>= 1) {
-                        if ((w & 1) == 1) {
+                        if ((w & 1) === 1) {
                             lists[c].push([x, y, z]);
                         }
                     }
@@ -47,7 +47,7 @@ export default class Rule {
         for (let c = 0; c < C; c++) {
             this.ishifts[c] = Array.from(lists[c]);
         }
-        if (OMX == IMX && OMY == IMY && OMZ == IMZ) {
+        if (OMX === IMX && OMY === IMY && OMZ === IMZ) {
             for (let c = 0; c < C; c++) {
                 lists[c].splice(0);
             }
@@ -75,7 +75,7 @@ export default class Rule {
         this.binput = new Array<byte>(this.input.length);
         for (let i = 0; i < input.length; i++) {
             const w = input[i];
-            this.binput[i] = w == wildcard ? 0xff : Helper.FirstNonZeroPos(w) as byte;
+            this.binput[i] = w === wildcard ? 0xff : Helper.FirstNonZeroPos(w) as byte;
         }
     }
 
@@ -175,14 +175,14 @@ export default class Rule {
         let IMX = -1, IMY = -1, IMZ = -1;
         let OMX = -1, OMY = -1, OMZ = -1;
 
-        if (inString == null || outString == null) {
+        if (inString === null || outString === null) {
             return null;
         }
         // eslint-disable-next-line prefer-const
         [inRect, IMX, IMY, IMZ] = Rule.Parse(inString);
         // eslint-disable-next-line prefer-const
         [outRect, OMX, OMY, OMZ] = Rule.Parse(outString);
-        if (inRect == null || outRect == null) {
+        if (inRect === null || outRect === null) {
             console.log("no in string or no out string")
             return null;
         }
@@ -199,7 +199,7 @@ export default class Rule {
         const output: byte[] = new Array<byte>(outRect.length);
         for (let o = 0; o < outRect.length; o++) {
             const c: char = outRect[o];
-            if (c == "*") {
+            if (c === "*") {
                 output[o] = 0xff;
             } else {
                 if (gout.values.has(c)) {
