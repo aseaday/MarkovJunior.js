@@ -44,7 +44,7 @@ export default class Grid {
             }
         }
         const transparentString: string = script.Get<string>("transparent", null);
-        if (transparentString != null) {
+        if (transparentString !== null) {
             g.transparent = g.Wave(transparentString);
         }
         const xunions: IScriptElement[] = new Array<IScriptElement>();

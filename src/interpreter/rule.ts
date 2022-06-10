@@ -55,7 +55,7 @@ export default class Rule {
                 for (let y = 0; y < IMY; y++) {
                     for (let x = 0; x < IMX; x++) {
                         const o = output[z * OMX * OMY + y * OMX + x];
-                        if (o != 0xff) {
+                        if (o !== 0xff) {
                             lists[o].push([x, y, z])
                         } else {
                             for (let c = 0; c < C; c++) {
@@ -126,16 +126,16 @@ export default class Rule {
     }
 
     public static Same(a1: Rule, a2: Rule): boolean {
-        if (a1.IMX != a2.IMX || a1.IMY != a2.IMY || a1.IMZ != a2.IMZ || a1.OMX != a2.OMX || a1.OMY != a2.OMY || a1.OMZ != a2.OMZ) {
+        if (a1.IMX !== a2.IMX || a1.IMY !== a2.IMY || a1.IMZ !== a2.IMZ || a1.OMX !== a2.OMX || a1.OMY !== a2.OMY || a1.OMZ !== a2.OMZ) {
             return false;
         }
          for (let i = 0; i < a1.IMX * a1.IMY * a1.IMZ; i++) {
-             if (a1.input[i] != a2.input[i]) {
+             if (a1.input[i] !== a2.input[i]) {
                  return false;
              }
          }
         for (let i = 0; i < a1.OMX * a1.OMY * a1.OMZ; i++) {
-            if (a1.output[i] != a2.output[i]) {
+            if (a1.output[i] !== a2.output[i]) {
                 return false;
             }
         }
@@ -150,12 +150,12 @@ export default class Rule {
         const result = new Array<char>(MX * MY * MZ);
         for (let z = 0; z < MZ; z++) {
             const linesz = lines[MZ - 1 - z];
-            if (linesz.length != MY) {
+            if (linesz.length !== MY) {
                 return [null, -1, -1, -1];
             }
             for (let y = 0; y < MY; y++) {
                 const lineszy = linesz[y];
-                if (lineszy.length != MX) {
+                if (lineszy.length !== MX) {
                     return [null, -1, -1, -1];
                 }
                 for (let x = 0; x < MX; x++) {

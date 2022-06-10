@@ -57,7 +57,7 @@ export default class Interpreter {
         this.gif = gif;
         this.counter = 0;
         this.current = this.root;
-        while (this.current != null && (steps <= 0 || this.counter < steps)) {
+        while (this.current !== null && (steps <= 0 || this.counter < steps)) {
             if (gif) {
                 yield [this.grid.state, this.grid.characters, this.grid.MX, this.grid.MY, this.grid.MZ]
             }
