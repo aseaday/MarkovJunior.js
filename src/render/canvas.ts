@@ -26,23 +26,25 @@ export default class CanvasRender {
         this.paint = new Paint(this.MX, this.MY);
     }
 
-    public render(script: string):void {
+    public render(script: string): void {
         this.scriptRoot = XmlElement.LoadFromString(script);
         this.interpreter = Interpreter.Load(this.scriptRoot, this.MX, this.MY, this.MZ);
         const gen = this.interpreter.Run(1, 1000, true);
         this.timer = setInterval(() => {
             const frame = gen.next().value;
-            this.paint.setFrame(frame);
-            for (let x = 0; x < this.MX; x++) {
-                for (let y = 0; y < this.MY; y++) {
-                    this.canvasHandler.fillStyle = "#" + this.paint.getPixel(x, y);
-                    this.canvasHandler.fillRect(x * 10, y * 10, 10, 10);
+            if (frame) {
+                this.paint.setFrame(frame);
+                for (let x = 0; x < this.MX; x++) {
+                    for (let y = 0; y < this.MY; y++) {
+                        this.canvasHandler.fillStyle = "#" + this.paint.getPixel(x, y);
+                        this.canvasHandler.fillRect(x * 10, y * 10, 10, 10);
+                    }
                 }
             }
         }, Math.floor(1000 / this.options.fps));
     }
 
-    public stopRender():void {
+    public stopRender(): void {
         clearInterval(this.timer);
     }
 }
