@@ -35,7 +35,7 @@ export default class Rule {
                 for (let x = 0; x < IMX; x++) {
                     let w = this.input[z * IMX * IMY + y * IMX + x];
                     for (let c = 0; c < C; c++, w >>= 1) {
-                        if ((w & 1) == 1) {
+                        if ((w & 1) === 1) {
                             lists[c].push([x, y, z]);
                         }
                     }
@@ -47,7 +47,7 @@ export default class Rule {
         for (let c = 0; c < C; c++) {
             this.ishifts[c] = Array.from(lists[c]);
         }
-        if (OMX == IMX && OMY == IMY && OMZ == IMZ) {
+        if (OMX === IMX && OMY === IMY && OMZ === IMZ) {
             for (let c = 0; c < C; c++) {
                 lists[c].splice(0);
             }
@@ -55,7 +55,7 @@ export default class Rule {
                 for (let y = 0; y < IMY; y++) {
                     for (let x = 0; x < IMX; x++) {
                         const o = output[z * OMX * OMY + y * OMX + x];
-                        if (o != 0xff) {
+                        if (o !== 0xff) {
                             lists[o].push([x, y, z])
                         } else {
                             for (let c = 0; c < C; c++) {
@@ -75,7 +75,7 @@ export default class Rule {
         this.binput = new Array<byte>(this.input.length);
         for (let i = 0; i < input.length; i++) {
             const w = input[i];
-            this.binput[i] = w == wildcard ? 0xff : Helper.FirstNonZeroPos(w) as byte;
+            this.binput[i] = w === wildcard ? 0xff : Helper.FirstNonZeroPos(w) as byte;
         }
     }
 
@@ -126,16 +126,16 @@ export default class Rule {
     }
 
     public static Same(a1: Rule, a2: Rule): boolean {
-        if (a1.IMX != a2.IMX || a1.IMY != a2.IMY || a1.IMZ != a2.IMZ || a1.OMX != a2.OMX || a1.OMY != a2.OMY || a1.OMZ != a2.OMZ) {
+        if (a1.IMX !== a2.IMX || a1.IMY !== a2.IMY || a1.IMZ !== a2.IMZ || a1.OMX !== a2.OMX || a1.OMY !== a2.OMY || a1.OMZ !== a2.OMZ) {
             return false;
         }
          for (let i = 0; i < a1.IMX * a1.IMY * a1.IMZ; i++) {
-             if (a1.input[i] != a2.input[i]) {
+             if (a1.input[i] !== a2.input[i]) {
                  return false;
              }
          }
         for (let i = 0; i < a1.OMX * a1.OMY * a1.OMZ; i++) {
-            if (a1.output[i] != a2.output[i]) {
+            if (a1.output[i] !== a2.output[i]) {
                 return false;
             }
         }
@@ -150,12 +150,12 @@ export default class Rule {
         const result = new Array<char>(MX * MY * MZ);
         for (let z = 0; z < MZ; z++) {
             const linesz = lines[MZ - 1 - z];
-            if (linesz.length != MY) {
+            if (linesz.length !== MY) {
                 return [null, -1, -1, -1];
             }
             for (let y = 0; y < MY; y++) {
                 const lineszy = linesz[y];
-                if (lineszy.length != MX) {
+                if (lineszy.length !== MX) {
                     return [null, -1, -1, -1];
                 }
                 for (let x = 0; x < MX; x++) {
@@ -166,24 +166,23 @@ export default class Rule {
         return [result, MX, MY, MZ];
     }
 
-    // There is no file read function now
     public static Load(selem: IScriptElement, gin: Grid, gout: Grid): Rule {
-        const inString = selem.Get<string>("in", null);
-        const outString = selem.Get<string>("out", null);
+        const inString: string | null = selem.Get<string>("in", null);
+        const outString: string | null = selem.Get<string>("out", null);
 
         let inRect: char[], outRect: char[];
         let IMX = -1, IMY = -1, IMZ = -1;
         let OMX = -1, OMY = -1, OMZ = -1;
 
-        if (inString == null || outString == null) {
+        if (inString === null || outString === null) {
             return null;
         }
         // eslint-disable-next-line prefer-const
         [inRect, IMX, IMY, IMZ] = Rule.Parse(inString);
         // eslint-disable-next-line prefer-const
         [outRect, OMX, OMY, OMZ] = Rule.Parse(outString);
-        if (inRect == null || outRect == null) {
-            console.log("no in string or no out string")
+        if (inRect === null || outRect === null) {
+            console.error("no in string or no out string")
             return null;
         }
         const input: number[] = new Array<number>(inRect.length);
@@ -192,20 +191,20 @@ export default class Rule {
             if (gin.waves.has(c)) {
                 input[i] = gin.waves.get(c);
             } else {
-                console.log("the input string has a char not in the grid");
+                console.error("the input string has a char not in the grid");
                 return null;
             }
         }
         const output: byte[] = new Array<byte>(outRect.length);
         for (let o = 0; o < outRect.length; o++) {
             const c: char = outRect[o];
-            if (c == "*") {
+            if (c === "*") {
                 output[o] = 0xff;
             } else {
                 if (gout.values.has(c)) {
                     output[o] = gout.values.get(c);
                 } else {
-                    console.log("the output string has a char not in the grid");
+                    console.error("the output string has a char not in the grid");
                     return null;
                 }
             }

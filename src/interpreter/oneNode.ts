@@ -17,7 +17,7 @@ export default class OneNode extends RuleNode {
 
     public override Reset(): void {
         super.Reset();
-        if (this.matchCount != 0) {
+        if (this.matchCount !== 0) {
             for (let x = 0; x < this.matchMask.length; x++) {
                 this.matchMask[x].fill(false);
             }
@@ -32,13 +32,13 @@ export default class OneNode extends RuleNode {
             for (let dy = 0; dy < rule.OMY; dy++) {
                 for (let dx = 0; dx < rule.OMX; dx++) {
                     const newValue = rule.output[dx + dy * rule.OMX + dz * rule.OMX * rule.OMY];
-                    if (newValue != 0xff) {
+                    if (newValue !== 0xff) {
                         const sx = x + dx;
                         const sy = y + dy;
                         const sz = z + dz;
                         const si = sx + sy * MX + sz * MX * MY;
                         const oldValue = this.grid.state[si];
-                        if (newValue != oldValue) {
+                        if (newValue !== oldValue) {
                             this.grid.state[si] = newValue;
                             changes.push([sx, sy, sz]);
                         }
@@ -54,8 +54,7 @@ export default class OneNode extends RuleNode {
         const lastMatchedTurn = this.ip.counter;
         const [R, X, Y, Z] = this.RandomMatch(this.ip.random);
         if (R < 0) return false;
-        else
-        {
+        else {
             this.last[R] = true;
             this.Apply(this.rules[R], X, Y, Z);
             this.counter++;
@@ -63,8 +62,7 @@ export default class OneNode extends RuleNode {
         }
     }
     public RandomMatch(random: Random) {
-        while (this.matchCount > 0)
-        {
+        while (this.matchCount > 0) {
             const matchIndex = random.Next(this.matchCount);
             const [r, x, y, z] = this.matches[matchIndex];
             const i = x + y * this.grid.MX + z * this.grid.MX * this.grid.MY;

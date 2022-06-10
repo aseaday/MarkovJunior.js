@@ -27,12 +27,12 @@ export default class Interpreter {
         ip.grid = Grid.Load(selm, MX, MY, MZ);
         ip.startGrid = ip.grid;
         const symmetryString: string = selm.Get<string>("symmetry", null);
-        const symmetry: boolean[] = SymmetryHelper.GetSymmetry(MZ == 1, symmetryString, ArrayHelper.Array1D(MZ == 1 ? 8 : 48, true));
-        if (symmetry == null) {
+        const symmetry: boolean[] = SymmetryHelper.GetSymmetry(MZ === 1, symmetryString, ArrayHelper.Array1D(MZ === 1 ? 8 : 48, true));
+        if (symmetry === null) {
             return null;
         }
         const topNode = Factory(selm, symmetry, ip, ip.grid);
-        if (topNode == null) {
+        if (topNode === null) {
             return null;
         }
         if ((topNode as Branch).isBranched) {
@@ -48,7 +48,7 @@ export default class Interpreter {
     public *Run(seed: number, steps: number, gif: boolean): IterableIterator<[byte[], char[], number, number, number]> {
         this.random = new Random(seed);
         this.grid = this.startGrid;
-        const originIndex = this.origin == "Center" ? (this.grid.MX / 2 + (this.grid.MY / 2) * this.grid.MX + (this.grid.MZ / 2) * this.grid.MX * this.grid.MY) : this.random.Next(this.grid.MX * this.grid.MY * this.grid.MZ);
+        const originIndex = this.origin === "Center" ? (this.grid.MX / 2 + (this.grid.MY / 2) * this.grid.MX + (this.grid.MZ / 2) * this.grid.MX * this.grid.MY) : this.random.Next(this.grid.MX * this.grid.MY * this.grid.MZ);
         this.grid.Clear(originIndex);
         this.changes.splice(0);
         this.first.splice(0);
@@ -57,7 +57,7 @@ export default class Interpreter {
         this.gif = gif;
         this.counter = 0;
         this.current = this.root;
-        while (this.current != null && (steps <= 0 || this.counter < steps)) {
+        while (this.current !== null && (steps <= 0 || this.counter < steps)) {
             if (gif) {
                 yield [this.grid.state, this.grid.characters, this.grid.MX, this.grid.MY, this.grid.MZ]
             }

@@ -87,11 +87,11 @@ export default class XmlElement implements IScriptElement {
                 yield e;
             }
             const eles = e.Elements();
-            eles.forEach(element => {
+            for (const element of eles) {
                 if (tags.indexOf(element.name) >= 0) {
                     q.push(element);
                 }
-            });
+            }
         }
     }
 }

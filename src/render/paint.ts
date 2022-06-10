@@ -14,7 +14,7 @@ export default class Paint {
     private MY: number;
     private MZ: number;
 
-    constructor(height: number, width: number, Z: number = 1) {
+    constructor(height: number, width: number, Z = 1) {
         this.patinValue = new Array<[number, number, number]>(height * width * Z);
         this.coloMap = new Map<char, [number, number, number]>();
         const paletteData = require("./palette.json");
@@ -32,7 +32,7 @@ export default class Paint {
         this.MZ = MZ;
     }
 
-    public getPixel(x: number, y: number, z:number = 0): [number, number, number] {
+    public getPixel(x: number, y: number, z = 0): [number, number, number] {
         return this.coloMap.get(this.characters[this.state[x + y * this.MX + z * this.MX * this.MY]]);
     }
 }
