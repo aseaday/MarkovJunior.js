@@ -54,8 +54,7 @@ export default class OneNode extends RuleNode {
         const lastMatchedTurn = this.ip.counter;
         const [R, X, Y, Z] = this.RandomMatch(this.ip.random);
         if (R < 0) return false;
-        else
-        {
+        else {
             this.last[R] = true;
             this.Apply(this.rules[R], X, Y, Z);
             this.counter++;
@@ -63,8 +62,7 @@ export default class OneNode extends RuleNode {
         }
     }
     public RandomMatch(random: Random) {
-        while (this.matchCount > 0)
-        {
+        while (this.matchCount > 0) {
             const matchIndex = random.Next(this.matchCount);
             const [r, x, y, z] = this.matches[matchIndex];
             const i = x + y * this.grid.MX + z * this.grid.MX * this.grid.MY;
